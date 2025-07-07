@@ -1,3 +1,10 @@
 {
-  "extends": "@react-native/typescript-config"
+  "extends": "@react-native/typescript-config",
+    
+  "ts-node": {
+    "compilerOptions": {
+       "module": "CommonJS",
+       "types": ["node"]
+     }
+  }
 }

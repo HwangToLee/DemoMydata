@@ -1,28 +1,63 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
-}
+import React from 'react';
+import {Text, View, StyleSheet, Button} from 'react-native';
+import CodePush, {
+    ReleaseHistoryInterface,
+    UpdateCheckRequest,
+} from "@bravemobile/react-native-code-push"
+import axios from 'axios';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  center: { alignItems: 'center', flex: 1, justifyContent: 'center'
   },
-});
+})
 
-export default App;
+const App = () => {
+    const handleCheckUpdate = () => {
+      
+    CodePush.sync(
+      {
+        installMode: CodePush.InstallMode.IMMEDIATE, // 다운받자마자 바로 적용
+        // updateDialog: true, // (옵션) 팝업으로 안내도 가능
+      },
+      (status) => {
+        console.log("CodePush status:", status);
+      },
+      (progress) => {
+        console.log(`Received ${progress.receivedBytes} of ${progress.totalBytes} bytes.`);
+      }
+    );
+  };
+
+  return (
+    <View
+      style={styles.center}>
+      <Text>Test For CodePush: ver1.0.17</Text>
+        <Button title="업데이트 확인" onPress={handleCheckUpdate} />
+    </View>
+  );
+};
+const S3_ENDPOINT = "http://192.168.0.125:9000" // S3 API 포트
+const BUCKET = "codepush-demo-my-data"
+const PLATFORM = "ios" // or "android"
+const IDENTIFIER = "staging"
+
+async function releaseHistoryFetcher(
+  updateRequest: UpdateCheckRequest,
+): Promise<ReleaseHistoryInterface> {
+  const { app_version } = updateRequest
+    console.log("releaseHistoryFetcher")
+
+  // Fetch release history for current binary app version.
+  // You can implement how to fetch the release history freely. (Refer to the example app if you need a guide)
+  const url = `${S3_ENDPOINT}/${BUCKET}/histories/${PLATFORM}/${IDENTIFIER}/${app_version}.json`
+  console.log("CodePush fetch url:", url)
+  
+  const {data: releaseHistory} = await axios.get<ReleaseHistoryInterface>(url)
+  console.log("CodePush fetch data:", releaseHistory)
+  return releaseHistory
+}
+
+export default CodePush({
+  checkFrequency: CodePush.CheckFrequency.ON_APP_START, // or something else
+  releaseHistoryFetcher: releaseHistoryFetcher,
+})(App);
