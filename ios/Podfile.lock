@@ -2130,6 +2130,37 @@ PODS:
     - React-perflogger (= 0.80.1)
     - React-utils (= 0.80.1)
     - SocketRocket
+  - RNSentry (6.16.1):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Sentry/HybridSDK (= 8.53.1)
+    - SocketRocket
+    - Yoga
+  - Sentry/HybridSDK (8.53.1)
   - SocketRocket (0.7.1)
   - SSZipArchive (2.2.3)
   - Yoga (0.0.0)
@@ -2208,6 +2239,7 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - SocketRocket (~> 0.7.1)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -2215,6 +2247,7 @@ SPEC REPOS:
   trunk:
     - Base64
     - JWT
+    - Sentry
     - SocketRocket
     - SSZipArchive
 
@@ -2364,6 +2397,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -2442,6 +2477,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: afd905e84ee36e1678016ae04d7370c75ed539be
   ReactCodegen: f8d5fb047c4cd9d2caade972cad9edac22521362
   ReactCommon: 17fd88849a174bf9ce45461912291aca711410fc
+  RNSentry: 456930310ee103d93f6cdf15a988d787120f5208
+  Sentry: 1e4e974d45f09d153af4b30b42acfb1c79e957d3
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: daa1e4de4b971b977b23bc842aaa3e135324f1f3
